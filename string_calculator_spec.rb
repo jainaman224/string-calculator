@@ -50,6 +50,7 @@ RSpec.describe StringCalculator do
         expect(string_calculator.add("1,5,25")).to eq(31)
       end
 
+      # Assumption: If number is "" on splitting at delimiter, consider it empty string hence 0.
       it 'returns sum of numbers' do
         string_calculator = StringCalculator.new
         expect(string_calculator.add(",1,5,25,45,")).to eq(76)
@@ -87,6 +88,15 @@ RSpec.describe StringCalculator do
       it 'returns Invalid Input Error' do
         string_calculator = StringCalculator.new
         expect {string_calculator.add("//;\n1;2,50")}.to raise_exception(RuntimeError, 'Invalid Input')
+      end
+    end
+
+    context 'when string has negative numbers' do
+      it 'returns exception with all negative numbers' do
+        string_calculator = StringCalculator.new
+        expect {string_calculator.add("//;\n-1;-2;3")}.to raise_exception(
+                                                            RuntimeError, 'Negative Numbers are not allowed: -1, -2'
+                                                          )
       end
     end
   end
