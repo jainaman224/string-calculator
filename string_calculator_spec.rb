@@ -50,10 +50,10 @@ RSpec.describe StringCalculator do
         expect(string_calculator.add("1,5,25")).to eq(31)
       end
 
-      # Assumption: If number is "" on splitting at delimiter, consider it empty string hence 0.
+      # Based on https://osherove.com/tdd-kata-1/, it will fail.
       it 'returns sum of numbers' do
         string_calculator = StringCalculator.new
-        expect(string_calculator.add(",1,5,25,45,")).to eq(76)
+        expect {string_calculator.add(",1,5,25,45,")}.to raise_exception(RuntimeError, 'Invalid Input')
       end
     end
 
@@ -68,9 +68,10 @@ RSpec.describe StringCalculator do
         expect(string_calculator.add("1\n2,3\n4")).to eq(10)
       end
 
+      # Based on https://osherove.com/tdd-kata-1/, it will fail.
       it 'returns sum of numbers' do
         string_calculator = StringCalculator.new
-        expect(string_calculator.add("1\n2,3\n")).to eq(6)
+        expect {string_calculator.add("1\n2,3\n")}.to raise_exception(RuntimeError, 'Invalid Input')
       end
     end
 
