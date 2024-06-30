@@ -32,6 +32,11 @@ RSpec.describe StringCalculator do
         string_calculator = StringCalculator.new
         expect(string_calculator.add("18,118")).to eq(136)
       end
+
+      it 'returns Invalid Input Error' do
+        string_calculator = StringCalculator.new
+        expect {string_calculator.add("1;2,50")}.to raise_exception(RuntimeError, 'Invalid Input')
+      end
     end
 
     context 'when string has multiple comma separated numbers' do
@@ -72,6 +77,16 @@ RSpec.describe StringCalculator do
       it 'returns sum of numbers' do
         string_calculator = StringCalculator.new
         expect(string_calculator.add("//;\n1;2")).to eq(3)
+      end
+
+      it 'returns sum of numbers' do
+        string_calculator = StringCalculator.new
+        expect(string_calculator.add("//:\n1:2:50")).to eq(53)
+      end
+
+      it 'returns Invalid Input Error' do
+        string_calculator = StringCalculator.new
+        expect {string_calculator.add("//;\n1;2,50")}.to raise_exception(RuntimeError, 'Invalid Input')
       end
     end
   end
