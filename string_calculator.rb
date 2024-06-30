@@ -2,7 +2,12 @@ class StringCalculator
   def add(numbers)
     return 0 if numbers.empty?
 
+    # Assumption: Delimiter can be '-'.
     delimiter, numbers = get_delimiter(numbers)
+    if numbers.include?("-") && delimiter != "-"
+      values = apply_delimiter(numbers, delimiter)
+      handle_negative_numbers(values.map(&:to_i))
+    end
     raise "Invalid Input" unless valid_string?(numbers, delimiter)
 
     values = apply_delimiter(numbers, delimiter)
@@ -32,5 +37,10 @@ class StringCalculator
   def valid_string?(numbers, delimiter)
     pattern = /\A[\d|#{delimiter}]+\z/
     pattern.match?(numbers)
+  end
+
+  def handle_negative_numbers(numbers)
+    negatives = numbers.select { |number| number < 0 }
+    raise "Negative Numbers are not allowed: #{negatives.join(", ")}" if negatives.any?
   end
 end
