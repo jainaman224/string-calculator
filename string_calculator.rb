@@ -3,6 +3,8 @@ class StringCalculator
     return 0 if numbers.empty?
 
     delimiter, numbers = get_delimiter(numbers)
+    raise "Invalid Input" unless valid_string?(numbers, delimiter)
+
     values = apply_delimiter(numbers, delimiter)
     sum(values)
   end
@@ -25,5 +27,10 @@ class StringCalculator
 
   def sum(values)
     values.map(&:to_i).sum
+  end
+
+  def valid_string?(numbers, delimiter)
+    pattern = /\A[\d|#{delimiter}]+\z/
+    pattern.match?(numbers)
   end
 end
