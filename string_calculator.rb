@@ -9,6 +9,10 @@ class StringCalculator
     values = apply_delimiter(numbers, delimiter)
     handle_negative_numbers(values)
 
+    if values.select { |value| value > 1000 }.any?
+      values = handle_big_numbers(values)
+    end
+
     sum(values)
   end
 
@@ -40,5 +44,9 @@ class StringCalculator
   def handle_negative_numbers(numbers)
     negatives = numbers.select { |number| number < 0 }
     raise "Negative Numbers are not allowed: #{negatives.join(", ")}" if negatives.any?
+  end
+
+  def handle_big_numbers(values)
+    values.select { |value| value < 1000 }
   end
 end
