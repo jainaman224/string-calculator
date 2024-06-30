@@ -4,13 +4,11 @@ class StringCalculator
 
     # Assumption: Delimiter can be '-'.
     delimiter, numbers = get_delimiter(numbers)
-    if numbers.include?("-") && delimiter != "-"
-      values = apply_delimiter(numbers, delimiter)
-      handle_negative_numbers(values.map(&:to_i))
-    end
-    raise "Invalid Input" unless valid_string?(numbers, delimiter)
+    check_valid_string(numbers, delimiter)
 
     values = apply_delimiter(numbers, delimiter)
+    handle_negative_numbers(values)
+
     sum(values)
   end
 
@@ -27,16 +25,16 @@ class StringCalculator
   end
 
   def apply_delimiter(numbers, delimiter)
-    numbers.split(delimiter)
+    numbers.split(delimiter).map(&:to_i)
   end
 
   def sum(values)
-    values.map(&:to_i).sum
+    values.sum
   end
 
-  def valid_string?(numbers, delimiter)
-    pattern = /\A[\d|#{delimiter}]+\z/
-    pattern.match?(numbers)
+  def check_valid_string(numbers, delimiter)
+    pattern = /\A(#{delimiter})*(-?\d+(#{delimiter}))*-?\d*(#{delimiter})*\Z/
+    raise "Invalid Input" unless pattern.match?(numbers)
   end
 
   def handle_negative_numbers(numbers)
