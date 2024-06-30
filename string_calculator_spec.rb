@@ -100,5 +100,17 @@ RSpec.describe StringCalculator do
                                                           )
       end
     end
+
+    context 'when string has big numbers (>1000)' do
+      it 'returns sum of small numbers' do
+        string_calculator = StringCalculator.new
+        expect(string_calculator.add("//;\n2;1001")).to eq(2)
+      end
+
+      it 'returns sum of small numbers' do
+        string_calculator = StringCalculator.new
+        expect(string_calculator.add("2,1001\n5\n2000")).to eq(7)
+      end
+    end
   end
 end
