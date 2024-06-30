@@ -67,5 +67,12 @@ RSpec.describe StringCalculator do
         expect(string_calculator.add("1\n2,3\n")).to eq(6)
       end
     end
+
+    context 'when string has different delimiters separated numbers (//[delimiter]\n[numbers…])' do
+      it 'returns sum of numbers' do
+        string_calculator = StringCalculator.new
+        expect(string_calculator.add("//;\n1;2")).to eq(3)
+      end
+    end
   end
 end
