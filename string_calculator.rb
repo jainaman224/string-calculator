@@ -33,7 +33,7 @@ class StringCalculator
   end
 
   def check_valid_string(numbers, delimiter)
-    pattern = /\A(#{delimiter})*(-?\d+(#{delimiter}))*-?\d*(#{delimiter})*\Z/
+    pattern = /\A(-?\d+)([#{delimiter}]-?\d+)*\z/
     raise "Invalid Input" unless pattern.match?(numbers)
   end
 
