@@ -112,5 +112,17 @@ RSpec.describe StringCalculator do
         expect(string_calculator.add("2,1001\n5\n2000")).to eq(7)
       end
     end
+
+    context 'when string has any length delimiters' do
+      it 'returns sum of numbers' do
+        string_calculator = StringCalculator.new
+        expect(string_calculator.add("//__\n2__100__5")).to eq(107)
+      end
+
+      it 'returns sum of numbers' do
+        string_calculator = StringCalculator.new
+        expect(string_calculator.add("//+++\n2+++100+++5+++20")).to eq(127)
+      end
+    end
   end
 end
