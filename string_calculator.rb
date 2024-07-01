@@ -19,15 +19,12 @@ class StringCalculator
   private
 
   def get_delimiter(numbers)
-    if numbers.start_with?("//") && numbers.index("\n") != 3
+    if numbers.start_with?("//")
       newline_index = numbers.index("\n")
       raise "Invalid Input" if newline_index.nil?
 
       delimiter = numbers[2..(newline_index-1)]
       numbers = numbers[(newline_index+1)..-1]
-    elsif numbers.start_with?("//")
-      delimiter = numbers[2]
-      numbers = numbers[4..-1]
     else
       delimiter = /\n|,/
     end
@@ -43,7 +40,7 @@ class StringCalculator
   end
 
   def check_valid_string(numbers, delimiter)
-    if delimiter.is_a?(String) && delimiter.size > 1
+    if delimiter.is_a?(String)
       pattern = /\A(-?\d+)(#{Regexp.escape(delimiter)}-?\d+)*\z/
     else
       pattern = /\A(-?\d+)([#{delimiter}]-?\d+)*\z/
